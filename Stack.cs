@@ -12,23 +12,21 @@ namespace Stack
     public class Stack
     {
         public int Size { get; private set; }
-        public string Top { get; private set; }
-        static StackItem RefTop { get; set; }
+        StackItem RefTop { get ; set; }
+        public string Top => RefTop == null ? null : RefTop.ItemValue;
 
         public Stack(params string[] items)
         {
             Add(items);
         }
-
         class StackItem
         {
             public string ItemValue { get; private set; }
-            public StackItem ItemPrevious { get; private set; }
-            public StackItem(string itemValue)
+            public StackItem ItemPrevious { get; set; }
+            public StackItem(StackItem item, string itemValue)
             {
                 ItemValue = itemValue;
-                ItemPrevious = RefTop;
-                RefTop = this;
+                ItemPrevious = item;
             }
         }
         public void PrintResult()
@@ -48,9 +46,9 @@ namespace Stack
         {
             foreach (string item in items)
             {
-                new StackItem(item);
+                StackItem added = new StackItem(RefTop, item);
+                RefTop = added;
                 Size++;
-                Top = item;
             }
         }
         public string Pop()
@@ -59,16 +57,7 @@ namespace Stack
             {
                 string removedValue = RefTop.ItemValue;
                 RefTop = RefTop.ItemPrevious;
-                if (Size == 1)
-                {
-                    Top = null;
-                }
-                else
-                {
-                    Top = RefTop.ItemValue;
-                }
                 Size--;
-
                 return removedValue;
             }
             else
@@ -98,7 +87,7 @@ namespace Stack
             }
             else
             {
-                Console.WriteLine("Стек пустой");
+                Console.WriteLine("В стеке нет элементов");
             }
         }
         public static Stack Concat(params Stack[] stacks)

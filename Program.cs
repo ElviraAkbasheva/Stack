@@ -27,8 +27,9 @@ namespace Stack
                 s.Pop();
                 s.Pop();
                 s.Pop();
-                s.StackContents();
                 s.PrintResult();
+                s.StackContents();
+
 
                 Console.WriteLine("\nПопытка удалить элемент из пустого стека:");
                 s.Pop();
@@ -41,20 +42,16 @@ namespace Stack
 
             var sMer = new Stack("a", "b", "c");
             sMer.Merge(new Stack("1", "2", "3"));
+            sMer.PrintResult();
             sMer.StackContents();
-
-            var sCon = new Stack();
-            sCon.Merge(new Stack("a", "b", "c"));
-            sCon.Merge(new Stack("1", "2", "3"));
-            sCon.Merge(new Stack("A", "Б", "В"));
-            sCon.StackContents();
-            sCon.PrintResult();
 
             Console.WriteLine("\nИспользование метода Concat:");
 
-            var con = Stack.Concat(new Stack("a", "b", "c"), new Stack("1", "2", "3"), new Stack("A", "Б", "В"));
-            con.StackContents();
-            con.PrintResult();
+            var sCon = Stack.Concat(new Stack("a", "b", "c"), new Stack("1", "2", "3"), new Stack("A", "Б", "В"));
+            sCon.PrintResult();
+            sCon.StackContents();
+
+            Console.ReadKey();
         }
     }
 }
